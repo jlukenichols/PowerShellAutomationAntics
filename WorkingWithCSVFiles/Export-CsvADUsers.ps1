@@ -85,8 +85,9 @@ $allUsersInOU | Select-Object -Property $arrayOfADUserProperties | Export-Csv -P
 
 ## TIP: If any of the properties of $allUsersInOU are blank, the script will output that property as a double comma with nothing in between.
 ## For an example, check the "EmailAddress" field in "WorkingWithCsvFiles\CSV_output\ExportCsvADUsers_2025-07-08T171749Z.csvBlankValues.example"
-## Only 1 user actually has an Email Address, the rest are blank. It is VERY important that the double comma is there, or else all the values after it would shift left by 1 column.
-## CSV's rely on the number of delimiters being consistent on each line in order to align values with the appropriate headers.
+## Only 1 user actually has an Email Address, the rest are blank, represented with ",," with nothing in between.
+## It is VERY important that the double comma is there, or else all the values after it would shift left by 1 column.
+## CSV's rely on the quantity of delimiters being consistent on each line in order to align values with the appropriate headers.
 ## In practice you probably never need to worry about this in PowerShell, Export-CSV will handle it for you.
 ## The only time you may need to worry about this if you're manually constructing a CSV line-by-line by appending text to a file.
 ## If you're doing that, you're probably doing something wrong and could re-factor your code to use Export-Csv instead.

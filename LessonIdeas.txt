@@ -7,12 +7,12 @@ About CSVs
 	CSV vs XLSX
 Export-Csv
 	Report? About what? Users, passwords, groups, computers, OUs?
-	Use example of kersia divestiture where we need to remove users from groups?
+	Use example of divestiture where we need to remove users from groups?
 	Build a report of windows 10 computers
 Import-Csv
 	What is a PowerShell object? Explain how Import-CSV just takes CSV-formatted data and converts into a PS object
 	Import from where? Some kind of database? Fake workday data piped into new-aduser?
-	Use example of kersia divestiture where we need to remove users from groups?
+	Use example of divestiture where we need to remove users from groups?
 	Import a CSV report of computers that need something done to them, then use Import-Csv to iterate through them and send some command?
 		Invoke-Command -ComputerName <RemoteComputerName> -ScriptBlock { <CommandToRun> }
 		Invoke-Command -ComputerName <RemoteComputerName> -FilePath <PathToLocalScript.ps1>
