@@ -73,10 +73,10 @@ $allUsersInOU = Get-ADUser -Filter * -SearchBase $($organizationalUnitObject.Dis
 ## ...and consume more CPU and memory. It's better to only retrieve the properties you need as a best practice. If you're only retrieving 20 users...
 ## ...then "-Properties *" will not noticably change anything, but what if you're retrieving 2000?
 ##
-## TIP: Some properties of an AD user are arrays, e.g. memberOf. That means each user has a one-to-many relationship with groups.
+## TIP: Some properties of an AD user are arrays, e.g. userCertificate or memberOf. That means each user has a one-to-many relationship with groups.
 ## Unfortunately, there is no easy way to represent one-to-many relationships in a CSV file, because it is a flatfile database.
 ## In a real database you would handle this with a separate table for user-group mappings and use foreign keys for the Users and Groups tables...
-## ...but that's not an option in a CSV. If you really want an array in your CSV, just be careful about the delimiters. If the array is ...
+## ...but that's not a realistic option in a CSV. If you really want an array in your CSV, just be careful about the delimiters. If the array is ...
 ## ...delimited with the same character as your CSV's fields, you'll have to replace the delimiter with another character or wrap the whole thing in double-quotes to treat it as a string.
 ## Additionally, whatever system will be reading that CSV must be smart enough to re-assemble the string of groups into an array containing an arbitrary number of values.
 
@@ -85,9 +85,11 @@ $allUsersInOU | Select-Object -Property $arrayOfADUserProperties | Export-Csv -P
 
 ## TIP: If any of the properties of $allUsersInOU are blank, the script will output that property as a double comma with nothing in between.
 ## For an example, check the "EmailAddress" field in "WorkingWithCsvFiles\CSV_output\ExportCsvADUsers_2025-07-08T171749Z.csvBlankValues.example"
-## Only 1 user actually has an Email Address, the rest are blank. It is VERY important that the double comma is there, or else all the values after it would shift to the column.
-## PowerShell relies on the number of delimiters being consistent on each line in order to align values with the appropriate headers.
-## In practice you never need to worry about this, Export-CSV will handle it for you.
+## Only 1 user actually has an Email Address, the rest are blank. It is VERY important that the double comma is there, or else all the values after it would shift left by 1 column.
+## CSV's rely on the number of delimiters being consistent on each line in order to align values with the appropriate headers.
+## In practice you probably never need to worry about this in PowerShell, Export-CSV will handle it for you.
+## The only time you may need to worry about this if you're manually constructing a CSV line-by-line by appending text to a file.
+## If you're doing that, you're probably doing something wrong and could re-factor your code to use Export-Csv instead.
 
 Write-Host "Results saved to $fullPathToExportFile"
 
