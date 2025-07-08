@@ -54,6 +54,8 @@ $allGroupMembers = :loopThroughGroupNames foreach ($group in $arrayOfGroupNames)
 
     :loopThroughGroupMembers foreach ($member in $thisGroupMembers) {
 
+        Write-Host "Found user $($member.SamAccountName) in group $group"
+
         # Output the results of this loop into a PSCustomObject
         # This will be added to the variable $allGroupMembers for easier use later
         [PSCustomObject]@{
@@ -61,6 +63,7 @@ $allGroupMembers = :loopThroughGroupNames foreach ($group in $arrayOfGroupNames)
             Group = $group
         }
     }
+    Write-Host "------------------------------------"
 }
 
 # Take the results of our loop and output to a CSV
